@@ -1,0 +1,1 @@
+web: java -jar target/victorlorfevreprojet2-0.0.1.jar
