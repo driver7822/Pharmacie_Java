@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
 @Entity
 @Table(name = "infos", schema = "public", catalog = "d4khrccc1imesr")
-public class infos {
+public class Infos {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInfo;
     private Integer quantite;
