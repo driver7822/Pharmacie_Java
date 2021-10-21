@@ -16,8 +16,8 @@ public class PrescriptionServiceImpl implements InterfPrescriptionService{
     @Autowired
     private PrescriptionRepository prescriptionRepository;
 
-    @Autowired
-    private PatientRepository patientRepository;
+    //@Autowired
+   // private PatientRepository patientRepository;
 
     @Override
     public Prescription create(Prescription prescription) throws Exception {
