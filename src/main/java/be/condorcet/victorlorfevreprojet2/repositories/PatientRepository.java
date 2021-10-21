@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
-    public List<Patient> findByIdPatient(Integer idPatient);
     public List<Patient> findByNomLike(String nom);
     public List<Patient> findByNomLikeAndPrenomLike(String nom,String Prenom);
     public List<Patient> findByDateNaissance(Date dateNaissance);

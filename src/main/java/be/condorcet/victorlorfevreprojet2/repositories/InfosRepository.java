@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface InfosRepository extends JpaRepository<Infos,Integer> {
-    public List<Infos> findByIdInfo(Integer idInfo);
     public List<Infos> findByQuantite(Integer quantite);
     public List<Infos> findByIdPrescription(Integer idPrescription);
     public List<Infos> findByIdMedicament(Integer idMedicament);
