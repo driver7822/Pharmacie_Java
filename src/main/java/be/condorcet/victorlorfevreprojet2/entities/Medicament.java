@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
 @Entity
@@ -15,4 +16,5 @@ public class Medicament {
     private String nom;
     private String description;
     private BigDecimal prixUnitaire;
+
 }

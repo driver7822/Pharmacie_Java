@@ -3,6 +3,7 @@ package be.condorcet.victorlorfevreprojet2.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
 @Entity
@@ -14,4 +15,8 @@ public class Medecin {
     private String nom;
     private String prenom;
     private String tel;
+
+    @OneToMany(mappedBy = "medecin", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Collection<Prescription> prescriptions;
 }

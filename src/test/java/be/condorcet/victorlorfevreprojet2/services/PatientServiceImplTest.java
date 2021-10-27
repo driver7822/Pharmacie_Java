@@ -24,7 +24,7 @@ class PatientServiceImplTest {
     @BeforeEach
     void setUp() {
         try {
-            pat = new Patient(null,"NssTest","NomTest","PrenomTest",  Date.valueOf(LocalDate.now()));
+            pat = new Patient(null,"NssTest","NomTest","PrenomTest",  Date.valueOf(LocalDate.now()),null);
                 patientServiceImpl.create(pat);
             System.out.println("Création du patient : "+pat);
         }

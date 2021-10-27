@@ -3,6 +3,7 @@ package be.condorcet.victorlorfevreprojet2.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
@@ -15,4 +16,8 @@ public class Patient {
     private String nom;
     private String prenom;
     private Date dateNaissance;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Collection<Prescription> prescriptions;
 }

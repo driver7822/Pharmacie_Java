@@ -3,6 +3,7 @@ package be.condorcet.victorlorfevreprojet2.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
@@ -12,6 +13,13 @@ public class Prescription {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrescription;
     private Date datePrescription;
-    private Integer idMedecin;
-    private Integer idPatient;
+
+    @ManyToOne
+    @JoinColumn(name="idpatient")
+    private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name = "idmedecin")
+    private Medecin  medecin;
+
 }

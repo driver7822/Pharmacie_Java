@@ -11,6 +11,12 @@ public class Infos {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInfo;
     private Integer quantite;
-    private Integer idPrescription;
-    private Integer idMedicament;
+
+    @ManyToOne
+    @JoinColumn(name="idmedicament")
+    private Medicament medicament;
+
+    @ManyToOne
+    @JoinColumn(name = "idprescription")
+    private Prescription prescription;
 }
