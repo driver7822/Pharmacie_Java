@@ -45,17 +45,17 @@ class PatientServiceImplTest {
 
     @Test
     void create() {
-        assertNotEquals(0,pat.getIdPatient(),"ID du patient non incrémenté");
+        assertNotEquals(0,pat.getIdpatient(),"ID du patient non incrémenté");
     }
 
     @Test
     void read() {
         try {
-            int idPat = pat.getIdPatient();
+            int idPat = pat.getIdpatient();
             Patient pat2 = patientServiceImpl.read(idPat);
             assertEquals("NssTest",pat2.getNss(),"NSS différents "+"NssTest"+" - "+pat2.getNss());
             assertEquals("NomTest",pat2.getNom(),"Noms différents "+"NomTest"+" - "+pat2.getNom());
-            assertEquals("PrenomTest",pat2.getNom(),"Prénoms différents "+"PrenomTest"+" - "+pat2.getPrenom());
+            assertEquals("PrenomTest",pat2.getPrenom(),"Prénoms différents "+"PrenomTest"+" - "+pat2.getPrenom());
         }
         catch (Exception e){
             fail("Recherche infructueuse : "+e);
@@ -85,7 +85,7 @@ class PatientServiceImplTest {
         try {
             patientServiceImpl.delete(pat);
             Assertions.assertThrows(Exception.class,() -> {
-                patientServiceImpl.read(pat.getIdPatient());
+                patientServiceImpl.read(pat.getIdpatient());
             },"record non effacé");
         }
         catch (Exception e){
@@ -96,11 +96,23 @@ class PatientServiceImplTest {
     @Test
     void testRead() {
         List<Patient> lpat = patientServiceImpl.read("NomTest");
-        boolean trouve=true;
+        boolean trouve=false;
         for (Patient p : lpat){
             if (p.getNom().equals("NomTest")) trouve=true;
-            else fail("un record ne correspond pas, nom = "+pat.getNom());
-            assertTrue(trouve,"record non trouvé dans la liste");
+            else fail("un record ne correspond pas, nom = "+p.getNom());
         }
+        assertTrue(trouve,"record non trouvé dans la liste");
     }
+
+    @Test
+    void readNss() {
+        List<Patient> lpat = patientServiceImpl.readNss("NssTest");
+        boolean trouve=false;
+        for (Patient p : lpat){
+            if (p.getNss().equals("NssTest")) trouve=true;
+            else fail("un record ne correspond pas, nss = "+p.getNss());
+        }
+        assertTrue(trouve,"record non trouvé dans la liste");
+    }
+
 }

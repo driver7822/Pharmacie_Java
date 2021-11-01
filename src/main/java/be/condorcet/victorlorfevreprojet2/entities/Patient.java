@@ -10,12 +10,13 @@ import java.util.Date;
 @Entity
 @Table(name = "patient", schema = "public", catalog = "d4khrccc1imesr")
 public class Patient {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPatient;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idpatient;
     private String nss;
     private String nom;
     private String prenom;
-    private Date dateNaissance;
+    private Date datenaissance;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     @ToString.Exclude

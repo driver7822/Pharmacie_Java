@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface InterfMedicamentService extends InterfService<Medicament>{
     public List<Medicament> read(String nom);
+    public List<Medicament> readCode(String code);
 }

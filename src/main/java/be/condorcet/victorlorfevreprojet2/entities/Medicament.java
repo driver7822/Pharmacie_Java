@@ -11,10 +11,10 @@ import java.util.Collection;
 @Table(name = "medicament", schema = "public", catalog = "d4khrccc1imesr")
 public class Medicament {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMedicament;
+    private Integer idmedicament;
     private String code;
     private String nom;
     private String description;
-    private BigDecimal prixUnitaire;
+    private BigDecimal prixunitaire;
 
 }

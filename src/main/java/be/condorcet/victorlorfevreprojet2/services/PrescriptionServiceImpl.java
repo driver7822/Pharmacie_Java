@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,9 +16,6 @@ import java.util.List;
 public class PrescriptionServiceImpl implements InterfPrescriptionService{
     @Autowired
     private PrescriptionRepository prescriptionRepository;
-
-    //@Autowired
-   // private PatientRepository patientRepository;
 
     @Override
     public Prescription create(Prescription prescription) throws Exception {
@@ -32,21 +30,21 @@ public class PrescriptionServiceImpl implements InterfPrescriptionService{
 
     @Override
     public Prescription update(Prescription prescription) throws Exception{
-        Integer id = prescription.getIdPrescription();
+        Integer id = prescription.getIdprescription();
         Prescription oldPres = read(id);
-        oldPres.setDatePrescription(prescription.getDatePrescription());
+        oldPres.setDateprescription(prescription.getDateprescription());
         prescriptionRepository.save(oldPres);
-        return read(oldPres.getIdPrescription());
+        return read(oldPres.getIdprescription());
     }
 
     @Override
     public void delete(Prescription prescription) throws Exception{
-        prescriptionRepository.deleteById(prescription.getIdPrescription());
+        prescriptionRepository.deleteById(prescription.getIdprescription());
     }
 
     @Override
-    public List<Prescription> getPrescription(Patient pat){
-        List<Prescription> lpres = prescriptionRepository.findPrescriptionsByPatient(pat);
+    public List<Prescription> getPrescriptionByPatient(Patient pat) {
+        List<Prescription> lpres = prescriptionRepository.findPrescriptionByPatient(pat);
         return lpres;
     }
 }

@@ -29,24 +29,27 @@ public class MedicamentServiceImpl implements InterfMedicamentService{
 
     @Override
     public Medicament update(Medicament medicament) throws Exception{
-        Integer id = medicament.getIdMedicament();
+        Integer id = medicament.getIdmedicament();
         Medicament oldMedic = read(id);
         oldMedic.setCode(medicament.getCode());
         oldMedic.setNom(medicament.getNom());
         oldMedic.setDescription(medicament.getDescription());
-        oldMedic.setPrixUnitaire(medicament.getPrixUnitaire());
+        oldMedic.setPrixunitaire(medicament.getPrixunitaire());
         medicamentRepository.save(oldMedic);
-        return read(oldMedic.getIdMedicament());
+        return read(oldMedic.getIdmedicament());
     }
 
     @Override
     public void delete(Medicament medicament) throws Exception{
-        medicamentRepository.deleteById(medicament.getIdMedicament());
+        medicamentRepository.deleteById(medicament.getIdmedicament());
     }
 
     @Override
     public List<Medicament> read(String nom) {
         return medicamentRepository.findByNomLike(nom);
     }
+
+    @Override
+    public List<Medicament> readCode(String code) {return medicamentRepository.findByCode(code);}
 
 }

@@ -29,23 +29,26 @@ public class MedecinServiceImpl implements InterfMedecinService{
 
     @Override
     public Medecin update(Medecin medecin) throws Exception {
-        Integer id = medecin.getIdMedecin();
+        Integer id = medecin.getIdmedecin();
         Medecin oldMed = read(id);
         oldMed.setNom(medecin.getNom());
         oldMed.setPrenom(medecin.getPrenom());
         oldMed.setMatricule(medecin.getMatricule());
         oldMed.setTel(medecin.getTel());
         medecinRepository.save(oldMed);
-        return read(oldMed.getIdMedecin());
+        return read(oldMed.getIdmedecin());
     }
 
     @Override
     public void delete(Medecin medecin) throws Exception {
-        medecinRepository.deleteById(medecin.getIdMedecin());
+        medecinRepository.deleteById(medecin.getIdmedecin());
     }
 
     @Override
     public List<Medecin> read(String nom){
         return medecinRepository.findByNomLike(nom);
     }
+
+    @Override
+    public List<Medecin> readMatricule(String matricule) { return medecinRepository.findByMatricule(matricule);}
 }

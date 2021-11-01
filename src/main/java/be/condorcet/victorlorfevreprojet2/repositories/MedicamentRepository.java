@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface MedicamentRepository extends JpaRepository<Medicament,Integer> {
-    public List<Medicament> findByPrixUnitaire(BigDecimal prixUnitaire);
+    public List<Medicament> findByPrixunitaire(BigDecimal prixunitaire);
     public List<Medicament> findByNomLike(String nom);
     public List<Medicament> findByDescriptionLike(String description);
+    public List<Medicament> findByCode(String code);
 }

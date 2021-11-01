@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "infos", schema = "public", catalog = "d4khrccc1imesr")
 public class Infos {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idInfo;
+    private Integer idinfo;
     private Integer quantite;
 
     @ManyToOne

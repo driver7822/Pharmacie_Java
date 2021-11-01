@@ -29,23 +29,27 @@ public class PatientServiceImpl implements InterfPatientService{
 
     @Override
     public Patient update(Patient patient) throws Exception {
-        Integer id = patient.getIdPatient();
+        Integer id = patient.getIdpatient();
         Patient oldPat = read(id);
         oldPat.setNom(patient.getNom());
         oldPat.setPrenom(patient.getPrenom());
         oldPat.setNss(patient.getNss());
-        oldPat.setDateNaissance(patient.getDateNaissance());
+        oldPat.setDatenaissance(patient.getDatenaissance());
         patientRepository.save(oldPat);
-        return read(oldPat.getIdPatient());
+        return read(oldPat.getIdpatient());
     }
 
     @Override
     public void delete(Patient patient) throws Exception{
-        patientRepository.deleteById(patient.getIdPatient());
+        patientRepository.deleteById(patient.getIdpatient());
     }
 
     @Override
     public List<Patient> read(String nom) {
         return patientRepository.findByNomLike(nom);
     }
+
+    @Override
+    public List<Patient> readNss(String nss) { return patientRepository.findByNssLike(nss);}
+
 }

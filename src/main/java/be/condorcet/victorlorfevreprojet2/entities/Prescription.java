@@ -11,8 +11,8 @@ import java.util.Date;
 @Table(name = "prescription", schema = "public", catalog = "d4khrccc1imesr")
 public class Prescription {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPrescription;
-    private Date datePrescription;
+    private Integer idprescription;
+    private Date dateprescription;
 
     @ManyToOne
     @JoinColumn(name="idpatient")

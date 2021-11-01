@@ -10,7 +10,7 @@ import java.util.Collection;
 @Table(name = "medecin", schema = "public", catalog = "d4khrccc1imesr")
 public class Medecin {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMedecin;
+    private Integer idmedecin;
     private String matricule;
     private String nom;
     private String prenom;
