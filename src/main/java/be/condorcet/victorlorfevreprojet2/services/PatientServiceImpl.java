@@ -50,6 +50,6 @@ public class PatientServiceImpl implements InterfPatientService{
     }
 
     @Override
-    public List<Patient> readNss(String nss) { return patientRepository.findByNssLike(nss);}
+    public Patient readNss(String nss) { return patientRepository.findByNss(nss);}
 
 }

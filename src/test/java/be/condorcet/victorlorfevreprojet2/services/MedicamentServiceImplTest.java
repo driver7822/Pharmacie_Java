@@ -49,6 +49,15 @@ class MedicamentServiceImplTest {
     void create() {assertNotEquals(0,medicament.getIdmedicament(),"id medicament non incrémenté");}
 
     @Test
+    void creationDoublon(){
+        Medicament medicament2 = new
+                Medicament(null,"CodeTest","NomTest","DescriptionTest2",new BigDecimal(5));
+                Assertions.assertThrows(Exception.class,()->{
+                    medicamentServiceImpl.create(medicament2);
+                },"création d'un doublon");
+    }
+
+    @Test
     void read() {
         try {
             int nummedicament = medicament.getIdmedicament();

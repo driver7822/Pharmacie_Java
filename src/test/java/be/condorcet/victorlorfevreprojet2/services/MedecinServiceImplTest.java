@@ -1,6 +1,8 @@
 package be.condorcet.victorlorfevreprojet2.services;
 
 import be.condorcet.victorlorfevreprojet2.entities.Medecin;
+import be.condorcet.victorlorfevreprojet2.entities.Patient;
+import be.condorcet.victorlorfevreprojet2.entities.Prescription;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +21,12 @@ class MedecinServiceImplTest {
 
     @Autowired
     private MedecinServiceImpl medecinServiceImpl;
+
+    @Autowired
+    private PrescriptionServiceImpl prescriptionServiceImpl;
+
+    @Autowired
+    private PatientServiceImpl patientServiceImpl;
 
     private Medecin medecin;
     @BeforeEach
@@ -45,6 +55,13 @@ class MedecinServiceImplTest {
     @Test
     void create() { assertNotEquals(0,medecin.getIdmedecin(),"id medecin non incrémenté");}
 
+    @Test
+    void creationDoublon(){
+        Medecin medecin2 = new Medecin(null,"MatriculeTest","NomTest","PrenomTest","0479448855",null);
+        Assertions.assertThrows(Exception.class,()->{
+            medecinServiceImpl.create(medecin2);
+        },"création d'un doublon");
+    }
     @Test
     void read() {
         try {
@@ -86,6 +103,25 @@ class MedecinServiceImplTest {
             },"record non effacé");
         } catch (Exception e){
             fail("Erreur d'effacement : "+e);
+        }
+    }
+
+    @Test
+    void deleteAvecPres(){
+        try {
+            Patient pat = new Patient(null,"NssTest","NomTest","PrenomTest",  Date.valueOf(LocalDate.now()),null);
+            patientServiceImpl.create(pat);
+
+            Prescription pres = new Prescription(null,Date.valueOf(LocalDate.now()),pat,medecin);
+            prescriptionServiceImpl.create(pres);
+            Assertions.assertThrows(Exception.class,()->{
+                medecinServiceImpl.delete(medecin);
+            },"Effacement réalisé malgré prescription liée");
+
+            prescriptionServiceImpl.delete(pres);
+            patientServiceImpl.delete(pat);
+        } catch (Exception e){
+            fail("Erreur de création de prescription : "+e);
         }
     }
 

@@ -1,6 +1,8 @@
 package be.condorcet.victorlorfevreprojet2.services;
 
+import be.condorcet.victorlorfevreprojet2.entities.Medecin;
 import be.condorcet.victorlorfevreprojet2.entities.Patient;
+import be.condorcet.victorlorfevreprojet2.entities.Prescription;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatientServiceImplTest {
     @Autowired
     private PatientServiceImpl patientServiceImpl;
+
+    @Autowired
+    private PrescriptionServiceImpl prescriptionServiceImpl;
+
+    @Autowired
+    private MedecinServiceImpl medecinServiceImpl;
 
     Patient pat;
 
@@ -46,6 +54,15 @@ class PatientServiceImplTest {
     @Test
     void create() {
         assertNotEquals(0,pat.getIdpatient(),"ID du patient non incrémenté");
+    }
+
+    @Test
+    void creationDoublon(){
+        Patient patient2 = new
+                Patient(null,"NssTest","NomTest","PrenomTest",Date.valueOf(LocalDate.now()),null);
+                Assertions.assertThrows(Exception.class,()-> {
+                    patientServiceImpl.create(patient2);
+                },"création d'un doublon");
     }
 
     @Test
@@ -94,6 +111,25 @@ class PatientServiceImplTest {
     }
 
     @Test
+    void delAvecPres(){
+        try {
+            Medecin med = new Medecin(null,"MatriculeTest","NomTest","PrenomTest","0479123456",null);
+            medecinServiceImpl.create(med);
+
+            Prescription pres = new Prescription(null,Date.valueOf(LocalDate.now()),pat,med);
+            prescriptionServiceImpl.create(pres);
+            Assertions.assertThrows(Exception.class,()->{
+                patientServiceImpl.delete(pat);
+            },"effacement réalisé malgré prescription liée");
+
+            prescriptionServiceImpl.delete(pres);
+            medecinServiceImpl.delete(med);
+        } catch (Exception e) {
+            fail("Erreur de création de prescription : "+e);
+        }
+    }
+
+    @Test
     void testRead() {
         List<Patient> lpat = patientServiceImpl.read("NomTest");
         boolean trouve=false;
@@ -106,13 +142,15 @@ class PatientServiceImplTest {
 
     @Test
     void readNss() {
-        List<Patient> lpat = patientServiceImpl.readNss("NssTest");
-        boolean trouve=false;
-        for (Patient p : lpat){
-            if (p.getNss().equals("NssTest")) trouve=true;
-            else fail("un record ne correspond pas, nss = "+p.getNss());
+        try {
+            Patient patient = patientServiceImpl.readNss("NssTest");
+            assertEquals("NssTest",patient.getNss(),"NSS différents "+"NssTest"+" - "+patient.getNss());
+            assertEquals("NomTest",patient.getNom(),"Noms différents "+"NomTest"+" - "+patient.getNom());
+            assertEquals("PrenomTest",patient.getPrenom(),"Prénoms différents "+"PrenomTest"+" - "+patient.getPrenom());
         }
-        assertTrue(trouve,"record non trouvé dans la liste");
+        catch (Exception e){
+            fail("Recherche infructueuse : "+e);
+        }
     }
 
 }

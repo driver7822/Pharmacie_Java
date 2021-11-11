@@ -1,5 +1,6 @@
 package be.condorcet.victorlorfevreprojet2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Medecin {
     private String prenom;
     private String tel;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "medecin", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Collection<Prescription> prescriptions;
