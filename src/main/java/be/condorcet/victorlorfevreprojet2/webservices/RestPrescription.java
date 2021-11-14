@@ -31,7 +31,7 @@ public class RestPrescription {
 
     //-------------------Retrouver la prescription correspondant à un id donné--------------------------------------------------------
     @RequestMapping(value = "/idpatient={id}",method = RequestMethod.GET)
-    public ResponseEntity<List<Prescription>> getPrescriptionPatient(@PathVariable(value = "nss")int id) throws Exception{
+    public ResponseEntity<List<Prescription>> getPrescriptionPatient(@PathVariable(value = "id")int id) throws Exception{
         System.out.println("Recherche des prescriptions du patient d'id : "+id);
         Patient patient = patientServiceImpl.read(id);
         List<Prescription> lpres = prescriptionServiceImpl.getPrescriptionByPatient(patient);
