@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
 @RequestMapping("/medicaments")
 public class RestMedicament {
@@ -42,7 +43,7 @@ public class RestMedicament {
     }
 
     //-------------------Mettre à jour un médicament d'un id donné--------------------------------------------------------
-    @RequestMapping(value = "/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public ResponseEntity<Medicament> majMedicament(@PathVariable(value = "id")int id, @RequestBody Medicament nouvmedicament) throws Exception{
         System.out.println("MAJ du médicament id : "+id);
         nouvmedicament.setIdmedicament(id);

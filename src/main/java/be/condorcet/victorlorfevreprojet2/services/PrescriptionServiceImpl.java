@@ -47,4 +47,5 @@ public class PrescriptionServiceImpl implements InterfPrescriptionService{
         List<Prescription> lpres = prescriptionRepository.findPrescriptionByPatient(pat);
         return lpres;
     }
+
 }
