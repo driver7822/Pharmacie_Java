@@ -51,4 +51,7 @@ public class MedecinServiceImpl implements InterfMedecinService{
 
     @Override
     public List<Medecin> readMatricule(String matricule) { return medecinRepository.findByMatricule(matricule);}
+
+    @Override
+    public List<Medecin> readAllMedecin() {return medecinRepository.getAllMedecin();}
 }

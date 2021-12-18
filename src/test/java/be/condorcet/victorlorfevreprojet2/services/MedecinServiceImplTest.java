@@ -146,4 +146,5 @@ class MedecinServiceImplTest {
         }
         assertTrue(trouve,"record non trouvé dans la liste");
     }
+
 }

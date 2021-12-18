@@ -34,6 +34,15 @@ public class RestMedecin {
         return new ResponseEntity<>(medecins,HttpStatus.OK);
     }
 
+    //-------------------Avoir la liste des médecins--------------------------------------------------------
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<Medecin>> readAllMedecin() throws Exception {
+        System.out.println("Affichage de tout les médecins");
+        List<Medecin> medecins;
+        medecins = medecinServiceImpl.readAllMedecin();
+        return new ResponseEntity<>(medecins,HttpStatus.OK);
+    }
+
     //-------------------Créer un médecin--------------------------------------------------------
     @RequestMapping(value = "",method = RequestMethod.POST)
     public ResponseEntity<Medecin> createMedecin(@RequestBody Medecin medecin) throws Exception{
