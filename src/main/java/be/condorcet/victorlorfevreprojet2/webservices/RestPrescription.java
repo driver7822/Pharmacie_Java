@@ -1,7 +1,9 @@
 package be.condorcet.victorlorfevreprojet2.webservices;
 
+import be.condorcet.victorlorfevreprojet2.entities.Medecin;
 import be.condorcet.victorlorfevreprojet2.entities.Patient;
 import be.condorcet.victorlorfevreprojet2.entities.Prescription;
+import be.condorcet.victorlorfevreprojet2.services.MedecinServiceImpl;
 import be.condorcet.victorlorfevreprojet2.services.PatientServiceImpl;
 import be.condorcet.victorlorfevreprojet2.services.PrescriptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class RestPrescription {
     @Autowired
     private PatientServiceImpl patientServiceImpl;
 
+    @Autowired
+    private MedecinServiceImpl medecinServiceImpl;
+
     //-------------------Retrouver la prescription correspondant à un id donné--------------------------------------------------------
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ResponseEntity<Prescription> getPrescription(@PathVariable(value = "id")int id) throws Exception{
@@ -30,12 +35,21 @@ public class RestPrescription {
         return new ResponseEntity<>(prescription, HttpStatus.OK);
     }
 
-    //-------------------Retrouver la prescription correspondant à un id donné--------------------------------------------------------
+    //-------------------Retrouver la prescription correspondant à un id de patient donné--------------------------------------------------------
     @RequestMapping(value = "/idpatient={id}",method = RequestMethod.GET)
     public ResponseEntity<List<Prescription>> getPrescriptionPatient(@PathVariable(value = "id")int id) throws Exception{
         System.out.println("Recherche des prescriptions du patient d'id : "+id);
         Patient patient = patientServiceImpl.read(id);
         List<Prescription> lpres = prescriptionServiceImpl.getPrescriptionByPatient(patient);
+        return new ResponseEntity<>(lpres, HttpStatus.OK);
+    }
+
+    //-------------------Retrouver la prescription correspondant à un id de medecin donné--------------------------------------------------------
+    @RequestMapping(value = "/idmedecin={id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Prescription>> getPrescriptionMedecin(@PathVariable(value = "id")int id) throws Exception{
+        System.out.println("Recherche des prescriptions du medecin d'id : "+id);
+        Medecin medecin = medecinServiceImpl.read(id);
+        List<Prescription> lpres = prescriptionServiceImpl.getPrescriptionByMedecin(medecin);
         return new ResponseEntity<>(lpres, HttpStatus.OK);
     }
 

@@ -52,4 +52,6 @@ public class PatientServiceImpl implements InterfPatientService{
     @Override
     public Patient readNss(String nss) { return patientRepository.findByNss(nss);}
 
+    @Override
+    public List<Patient> readAllPatient() {return patientRepository.getAllPatient();}
 }

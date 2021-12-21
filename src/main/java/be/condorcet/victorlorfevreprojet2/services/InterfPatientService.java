@@ -7,4 +7,5 @@ import java.util.List;
 public interface InterfPatientService extends InterfService<Patient>{
     public List<Patient> read(String nom);
     public Patient readNss(String nss);
+    public List<Patient> readAllPatient();
 }

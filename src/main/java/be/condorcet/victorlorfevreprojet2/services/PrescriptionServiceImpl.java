@@ -1,5 +1,6 @@
 package be.condorcet.victorlorfevreprojet2.services;
 
+import be.condorcet.victorlorfevreprojet2.entities.Medecin;
 import be.condorcet.victorlorfevreprojet2.entities.Patient;
 import be.condorcet.victorlorfevreprojet2.entities.Prescription;
 import be.condorcet.victorlorfevreprojet2.repositories.PatientRepository;
@@ -45,6 +46,12 @@ public class PrescriptionServiceImpl implements InterfPrescriptionService{
     @Override
     public List<Prescription> getPrescriptionByPatient(Patient pat) {
         List<Prescription> lpres = prescriptionRepository.findPrescriptionByPatient(pat);
+        return lpres;
+    }
+
+    @Override
+    public List<Prescription> getPrescriptionByMedecin(Medecin med) {
+        List<Prescription> lpres = prescriptionRepository.findPrescriptionByMedecin(med);
         return lpres;
     }
 
