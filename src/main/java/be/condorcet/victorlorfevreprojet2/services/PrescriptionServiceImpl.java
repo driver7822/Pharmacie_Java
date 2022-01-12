@@ -54,5 +54,17 @@ public class PrescriptionServiceImpl implements InterfPrescriptionService{
         List<Prescription> lpres = prescriptionRepository.findPrescriptionByMedecin(med);
         return lpres;
     }
+    
+    @Override
+    public List<Prescription> getPrescriptionByPatientAndMedecin(Patient patient, Medecin medecin) throws Exception{
+        List<Prescription> lpres = prescriptionRepository.findPrescriptionByPatientAndAndMedecin(patient,medecin);
+        return lpres;
+    }
+
+    @Override
+    public List<Prescription> getPrescriptionByPatientOrderByNomMedecin(Patient patient) throws Exception{
+        List<Prescription> lpres = prescriptionRepository.findPrescriptionByPatientOrderByNomMedecin(patient);
+        return lpres;
+    }
 
 }

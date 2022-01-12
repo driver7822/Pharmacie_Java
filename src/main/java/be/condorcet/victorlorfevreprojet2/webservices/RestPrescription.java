@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
 @RequestMapping("/prescriptions")
 public class RestPrescription {
@@ -77,6 +77,27 @@ public class RestPrescription {
         Prescription pres = prescriptionServiceImpl.read(id);
         prescriptionServiceImpl.delete(pres);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/idpatient={idpat}/idmedecin={idmed}", method = RequestMethod.GET)
+    public ResponseEntity<List<Prescription>> getPrescriptionPatientAndMedecin(@PathVariable(value = "idpat")int idpat, @PathVariable(value = "idmed")int idmed) throws Exception{
+        System.out.println("Affichage des prescription du patient d'id "+idpat+" et du medecin d'id "+idmed);
+        Patient patient = patientServiceImpl.read(idpat);
+        Medecin medecin = medecinServiceImpl.read(idmed);
+
+        List<Prescription> lpres = prescriptionServiceImpl.getPrescriptionByPatientAndMedecin(patient,medecin);
+
+        return new ResponseEntity<>(lpres, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/idpatient={id}/orderByNomMedecin", method = RequestMethod.GET)
+    public ResponseEntity<List<Prescription>> getPrescriptionPatientOrderByNomMedecin(@PathVariable(value="id")int id) throws Exception {
+        System.out.println("Affichage des prescription du patient d'id "+id+" tiree par le nom du medecin");
+        Patient patient = patientServiceImpl.read(id);
+
+        List<Prescription> lpres = prescriptionServiceImpl.getPrescriptionByPatientOrderByNomMedecin(patient);
+
+        return new ResponseEntity<>(lpres, HttpStatus.OK);
     }
 
 
